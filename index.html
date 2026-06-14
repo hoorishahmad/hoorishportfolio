@@ -1,0 +1,717 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Hoorish Ahmad — ML / Computer Vision Engineer</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Sans:opsz,wght@9..40,400;9..40,500;9..40,600;9..40,700&family=JetBrains+Mono:wght@400;500;700&family=VT323&family=Press+Start+2P&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg:#D6D2C6;          /* desktop beige-grey */
+    --bg-2:#CBC6B8;        /* desktop deeper */
+    --win:#ECEAE2;         /* warm off-white window surface */
+    --win-2:#E3E0D6;       /* window alt rows */
+    --chrome:#C7C2B5;      /* window frame grey */
+    --chrome-dk:#9A9686;   /* frame shadow */
+    --ink:#1B1916;         /* near-black text */
+    --ink-soft:#55514A;    /* secondary text */
+    --violet:#6B2FB5;      /* primary accent */
+    --violet-dk:#451E78;   /* deep accent */
+    --violet-soft:#EADBFB; /* accent wash */
+    --term:#2F7D4B;        /* terminal green, used sparingly */
+    --line:#B7B2A3;        /* hairlines */
+    --warn:#B5532F;        /* fill-in / attention */
+    --radius:3px;
+    --shadow:3px 3px 0 rgba(27,25,22,.18);
+    --shadow-win:5px 5px 0 rgba(27,25,22,.22);
+  }
+
+  *{box-sizing:border-box;}
+  html{scroll-behavior:smooth;}
+  body{
+    margin:0;
+    font-family:"DM Sans",system-ui,sans-serif;
+    color:var(--ink);
+    background:
+      repeating-linear-gradient(45deg,rgba(255,255,255,.04) 0 2px,transparent 2px 4px),
+      radial-gradient(circle at 30% 0%,var(--bg) 0%,var(--bg-2) 100%);
+    line-height:1.55;
+    -webkit-font-smoothing:antialiased;
+    padding-top:38px; /* taskbar */
+  }
+  a{color:var(--violet);text-decoration:none;}
+  a:hover{text-decoration:underline;}
+  :focus-visible{outline:2px solid var(--violet);outline-offset:2px;}
+
+  /* ---------- TASKBAR ---------- */
+  .taskbar{
+    position:fixed;top:0;left:0;right:0;height:38px;z-index:100;
+    display:flex;align-items:center;gap:6px;padding:0 8px;
+    background:linear-gradient(180deg,#E6E2D8,#C9C4B6);
+    border-bottom:2px solid var(--chrome-dk);
+    box-shadow:0 2px 0 rgba(27,25,22,.12);
+    font-family:"VT323",monospace;
+  }
+  .start{
+    display:flex;align-items:center;gap:7px;
+    font-family:"VT323",monospace;font-size:20px;line-height:1;
+    padding:5px 12px 4px;border:2px solid;
+    border-color:#fff var(--chrome-dk) var(--chrome-dk) #fff;
+    background:var(--chrome);color:var(--ink);cursor:default;font-weight:400;
+  }
+  .start .led{width:9px;height:9px;background:var(--violet);box-shadow:0 0 0 1px var(--violet-dk);}
+  .tabs{display:flex;gap:4px;flex:1;overflow:hidden;}
+  .tab{
+    font-family:"VT323",monospace;font-size:18px;line-height:1;
+    padding:5px 11px 4px;border:2px solid;
+    border-color:#fff var(--chrome-dk) var(--chrome-dk) #fff;
+    background:var(--win-2);color:var(--ink-soft);white-space:nowrap;
+  }
+  .tab:hover{background:var(--violet-soft);color:var(--violet-dk);text-decoration:none;}
+  .clock{
+    font-family:"VT323",monospace;font-size:18px;line-height:1;
+    padding:5px 10px 4px;border:2px solid;
+    border-color:var(--chrome-dk) #fff #fff var(--chrome-dk);
+    background:var(--win-2);color:var(--ink);white-space:nowrap;
+  }
+  .tabs::-webkit-scrollbar{display:none;}
+
+  /* ---------- WINDOW SHELL ---------- */
+  .desktop{max-width:1120px;margin:0 auto;padding:26px 18px 70px;display:flex;flex-direction:column;gap:30px;}
+  .win{
+    background:var(--chrome);
+    border:2px solid;border-color:#fff var(--chrome-dk) var(--chrome-dk) #fff;
+    box-shadow:var(--shadow-win);
+  }
+  .titlebar{
+    display:flex;align-items:center;gap:8px;
+    padding:4px 6px;
+    background:linear-gradient(90deg,var(--violet-dk),var(--violet) 70%);
+    color:#fff;font-family:"VT323",monospace;font-size:19px;line-height:1;
+  }
+  .titlebar .dot{font-family:"DM Sans";font-size:11px;}
+  .titlebar .name{flex:1;letter-spacing:.5px;text-transform:lowercase;}
+  .winbtns{display:flex;gap:4px;}
+  .winbtns button{
+    width:18px;height:16px;border:2px solid;
+    border-color:#fff var(--chrome-dk) var(--chrome-dk) #fff;
+    background:var(--chrome);color:var(--ink);font-size:11px;line-height:1;
+    font-family:"DM Sans";cursor:pointer;display:grid;place-items:center;padding:0;font-weight:700;
+  }
+  .winbtns button:hover{background:var(--violet-soft);}
+  .win-body{background:var(--win);margin:3px;border:1px solid var(--line);padding:26px;}
+  .win.collapsed .win-body{display:none;}
+
+  .eyebrow{
+    font-family:"JetBrains Mono",monospace;font-size:11px;letter-spacing:2.5px;
+    text-transform:uppercase;color:var(--violet);font-weight:700;margin:0 0 10px;
+  }
+  h2.section-h{
+    font-family:"DM Serif Display",serif;font-weight:400;font-size:clamp(28px,4.4vw,46px);
+    margin:0 0 6px;line-height:1.02;letter-spacing:-.5px;
+  }
+  .section-sub{color:var(--ink-soft);max-width:62ch;margin:0 0 4px;}
+
+  /* ---------- HERO ---------- */
+  .hero-grid{display:grid;grid-template-columns:1.35fr .9fr;gap:26px;align-items:stretch;}
+  .pixel-kicker{
+    font-family:"Press Start 2P",monospace;font-size:clamp(13px,2.1vw,20px);
+    color:var(--violet);line-height:1.6;letter-spacing:1px;margin:0 0 18px;
+    text-shadow:2px 2px 0 var(--violet-soft);
+  }
+  .hero-name{
+    font-family:"DM Serif Display",serif;font-size:clamp(40px,7vw,76px);
+    line-height:.95;margin:0 0 14px;letter-spacing:-1.5px;
+  }
+  .hero-role{
+    font-family:"JetBrains Mono",monospace;font-size:clamp(14px,1.7vw,18px);
+    font-weight:500;color:var(--ink);margin:0 0 18px;line-height:1.5;
+  }
+  .hero-role b{color:var(--violet-dk);background:var(--violet-soft);padding:1px 5px;}
+  .hero-bio{color:var(--ink-soft);max-width:54ch;margin:0 0 22px;font-size:15.5px;}
+  .links{display:flex;flex-wrap:wrap;gap:9px;}
+  .link-chip{
+    display:inline-flex;align-items:center;gap:7px;
+    font-family:"JetBrains Mono",monospace;font-size:13px;font-weight:500;
+    padding:7px 13px;border:2px solid;
+    border-color:#fff var(--chrome-dk) var(--chrome-dk) #fff;
+    background:var(--chrome);color:var(--ink);box-shadow:var(--shadow);
+  }
+  .link-chip:hover{background:var(--violet);color:#fff;text-decoration:none;border-color:var(--violet-dk) #fff #fff var(--violet-dk);}
+  .link-chip.ghost{opacity:.65;border-style:dashed;border-color:var(--violet);background:transparent;color:var(--violet-dk);box-shadow:none;}
+
+  /* system-info "neofetch" panel */
+  .sysinfo{
+    background:#16140F;color:#E8E4D8;border:2px solid var(--chrome-dk);
+    font-family:"JetBrains Mono",monospace;font-size:12.5px;line-height:1.7;
+    padding:16px;display:flex;flex-direction:column;gap:2px;height:100%;
+  }
+  .sysinfo .asci{color:var(--violet);font-size:11px;line-height:1.15;white-space:pre;margin-bottom:10px;}
+  .sysinfo .row{display:flex;gap:8px;}
+  .sysinfo .k{color:#9B7BD4;min-width:74px;font-weight:700;}
+  .sysinfo .v{color:#E8E4D8;}
+  .sysinfo .grn{color:#6FCB8C;}
+
+  /* project screenshot frames */
+  .proj-img{
+    margin:16px 0 4px;border:2px solid var(--line);overflow:hidden;
+    background:var(--win-2);
+  }
+  .proj-img img{
+    width:100%;display:block;height:auto;
+  }
+  .proj-img-cap{
+    font-family:"JetBrains Mono",monospace;font-size:10.5px;letter-spacing:.8px;
+    color:var(--ink-soft);text-transform:uppercase;
+    padding:5px 9px;background:var(--win-2);border-top:1px solid var(--line);
+  }
+  .case-tag{
+    font-family:"JetBrains Mono",monospace;font-size:11px;letter-spacing:1.5px;
+    text-transform:uppercase;color:var(--violet);font-weight:700;
+  }
+  .case-title{
+    font-family:"DM Serif Display",serif;font-size:clamp(24px,3.4vw,34px);
+    margin:4px 0 4px;line-height:1.05;letter-spacing:-.4px;
+  }
+  .case-repo{font-family:"JetBrains Mono",monospace;font-size:12.5px;}
+  .case-grid{display:grid;grid-template-columns:1fr 1fr;gap:22px 30px;margin-top:20px;}
+  .block-h{
+    font-family:"JetBrains Mono",monospace;font-size:11px;letter-spacing:1.5px;
+    text-transform:uppercase;color:var(--ink-soft);font-weight:700;
+    border-bottom:1.5px solid var(--line);padding-bottom:5px;margin:0 0 9px;
+    display:flex;align-items:center;gap:7px;
+  }
+  .block-h::before{content:"";width:7px;height:7px;background:var(--violet);display:inline-block;}
+  .block p{margin:0;font-size:14.5px;color:var(--ink);}
+  .block ul{margin:0;padding-left:17px;font-size:14.5px;}
+  .block li{margin-bottom:5px;}
+
+  .stack-row{display:flex;flex-wrap:wrap;gap:6px;}
+  .pill{
+    font-family:"JetBrains Mono",monospace;font-size:11.5px;font-weight:500;
+    padding:3px 9px;background:var(--win-2);border:1px solid var(--line);color:var(--ink);
+  }
+  .pill.arch{background:var(--violet-soft);border-color:var(--violet);color:var(--violet-dk);font-weight:700;}
+
+  /* metrics */
+  .metrics{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-top:2px;}
+  .metric{
+    border:1.5px solid var(--line);background:var(--win-2);padding:11px 12px;
+  }
+  .metric .num{
+    font-family:"DM Serif Display",serif;font-size:26px;line-height:1;color:var(--violet-dk);
+  }
+  .metric .lbl{
+    font-family:"JetBrains Mono",monospace;font-size:10px;letter-spacing:1px;
+    text-transform:uppercase;color:var(--ink-soft);margin-top:6px;
+  }
+  .fill{
+    display:inline-block;font-family:"JetBrains Mono",monospace;font-size:14px;font-weight:700;
+    color:var(--warn);border:1.5px dashed var(--warn);padding:1px 7px;background:#FBF1EC;
+    border-radius:2px;
+  }
+  .metric .fill{font-size:17px;}
+
+  /* ---------- TECH MATRIX ---------- */
+  .matrix{display:grid;grid-template-columns:repeat(2,1fr);gap:18px;}
+  .mcell{border:1.5px solid var(--line);background:var(--win-2);padding:16px 16px 18px;}
+  .mcell h3{
+    font-family:"JetBrains Mono",monospace;font-size:12px;letter-spacing:1.5px;
+    text-transform:uppercase;margin:0 0 12px;color:var(--violet-dk);
+    display:flex;align-items:center;gap:8px;
+  }
+  .mcell h3 .ix{font-family:"VT323";font-size:17px;color:var(--violet);background:var(--violet-soft);padding:0 6px;line-height:1.4;}
+  .mcell.road{border-style:dashed;border-color:var(--warn);background:#FBF4F0;}
+  .mcell.road h3{color:var(--warn);}
+  .mcell.road h3 .ix{color:var(--warn);background:#F5E2D9;}
+
+  /* ---------- MINI PROJECTS ---------- */
+  .mini{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;}
+  .mcard{border:1.5px solid var(--line);background:var(--win-2);padding:14px;display:flex;flex-direction:column;gap:7px;}
+  .mcard .mt{font-family:"DM Sans";font-weight:700;font-size:15px;color:var(--ink);}
+  .mcard p{margin:0;font-size:13px;color:var(--ink-soft);line-height:1.45;flex:1;}
+  .mcard .ml{font-family:"JetBrains Mono",monospace;font-size:11px;}
+
+  /* ---------- RESEARCH ---------- */
+  .cite{
+    border-left:3px solid var(--violet);padding:2px 0 2px 18px;margin:0 0 16px;
+  }
+  .cite .ctitle{font-family:"DM Serif Display",serif;font-size:19px;line-height:1.25;}
+  .cite .cmeta{font-family:"JetBrains Mono",monospace;font-size:12px;color:var(--ink-soft);margin-top:3px;}
+  .cite.pending .ctitle{color:var(--ink-soft);}
+  .cw-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-top:14px;}
+  .cw{font-family:"JetBrains Mono",monospace;font-size:12px;padding:6px 9px;background:var(--win-2);border:1px solid var(--line);}
+
+  /* ---------- CONTACT BAR ---------- */
+  .contact .win-body{background:#16140F;color:#E8E4D8;border-color:#000;}
+  .contact .eyebrow{color:#9B7BD4;}
+  .contact h2.section-h{color:#fff;}
+  .contact .section-sub{color:#B7B2A3;}
+  .contact .link-chip{background:#241F18;color:#E8E4D8;border-color:#3a342a #000 #000 #3a342a;}
+  .contact .link-chip:hover{background:var(--violet);color:#fff;}
+
+  .footnote{
+    font-family:"JetBrains Mono",monospace;font-size:11px;color:var(--ink-soft);
+    text-align:center;margin-top:6px;
+  }
+  .note-strip{
+    background:#FBF4F0;border:1.5px dashed var(--warn);padding:10px 14px;margin:16px 3px 3px;
+    font-family:"JetBrains Mono",monospace;font-size:12px;color:var(--warn);line-height:1.6;
+  }
+
+  /* ---------- RESPONSIVE ---------- */
+  @media (max-width:880px){
+    .hero-grid{grid-template-columns:1fr;}
+    .case-grid{grid-template-columns:1fr;}
+    .matrix{grid-template-columns:1fr;}
+    .mini{grid-template-columns:1fr;}
+    .metrics{grid-template-columns:repeat(3,1fr);}
+    .cw-grid{grid-template-columns:1fr 1fr;}
+    .tabs{display:none;}
+  }
+  @media (max-width:560px){
+    .metrics{grid-template-columns:1fr;}
+    .win-body{padding:18px;}
+    .desktop{padding:18px 10px 60px;}
+  }
+  /* ---------- CONTACT FORM ---------- */
+  .cfield{display:flex;flex-direction:column;gap:5px;margin-bottom:12px;}
+  .clabel{
+    font-family:"JetBrains Mono",monospace;font-size:11px;letter-spacing:1.5px;
+    text-transform:uppercase;color:#9B7BD4;font-weight:700;
+  }
+  .cinput{
+    font-family:"JetBrains Mono",monospace;font-size:13px;
+    background:#201C15;color:#E8E4D8;
+    border:1.5px solid #3a342a;padding:9px 11px;
+    outline:none;resize:vertical;width:100%;
+  }
+  .cinput:focus{border-color:var(--violet);}
+  .cinput::placeholder{color:#5a5448;}
+  .csend{
+    font-family:"JetBrains Mono",monospace;font-size:13px;font-weight:700;
+    letter-spacing:1px;padding:10px 20px;
+    background:var(--violet);color:#fff;border:2px solid;
+    border-color:var(--violet-soft) var(--violet-dk) var(--violet-dk) var(--violet-soft);
+    cursor:pointer;width:100%;margin-top:4px;
+  }
+  .csend:hover{background:var(--violet-dk);}
+  .csend:disabled{opacity:.5;cursor:not-allowed;}
+  @media(max-width:700px){
+    #contact .win-body > div[style*="grid"]{grid-template-columns:1fr!important;}
+  }
+
+  @media (prefers-reduced-motion:reduce){html{scroll-behavior:auto;}}
+</style>
+</head>
+<body>
+
+  <!-- ===== TASKBAR ===== -->
+  <div class="taskbar">
+    <div class="start"><span class="led"></span>hoorish.exe</div>
+    <div class="tabs">
+      <a class="tab" href="#about">// about</a>
+      <a class="tab" href="#work">// case_studies</a>
+      <a class="tab" href="#stack">// tech_stack</a>
+      <a class="tab" href="#research">// research</a>
+      <a class="tab" href="#contact">// contact</a>
+    </div>
+    <div class="clock" id="clock">--/--/---- --:--</div>
+  </div>
+
+  <main class="desktop">
+
+    <!-- ===== HERO / ABOUT ===== -->
+    <section class="win" id="about">
+      <div class="titlebar">
+        <span class="name">about_me — README.md</span>
+        <span class="winbtns"><button data-min>_</button><button>▢</button><button>×</button></span>
+      </div>
+      <div class="win-body">
+        <div class="hero-grid">
+          <div>
+            <p class="pixel-kicker">// MACHINE&nbsp;LEARNING<br>&nbsp;&nbsp;&nbsp;ENGINEER</p>
+            <h1 class="hero-name">Hoorish<br>Ahmad</h1>
+            <p class="hero-role">ML&nbsp;Engineer for <b>Computer&nbsp;Vision</b>, real-time <b>on-device inference</b> &amp; <b>edge deployment</b>.</p>
+            <p class="hero-bio">
+              Final-year Computer Systems Engineering student at UET Peshawar (CGPA 3.70). I build
+              the full path from trained model to running product — training detectors in PyTorch,
+              exporting to ONNX, and running them live inside constrained real-time AR/game scenes
+              with no server in the loop. Focused on AI for interactive media, and headed toward
+              research-based graduate study in the same space.
+            </p>
+            <div class="links">
+              <a class="link-chip" href="https://github.com/hoorishahmad" target="_blank" rel="noopener">⌥ GitHub</a>
+              <a class="link-chip" href="https://linkedin.com/in/hoorish-ahmad" target="_blank" rel="noopener">in LinkedIn</a>
+              <a class="link-chip" href="mailto:hoorish488@gmail.com">✉ Email</a>
+            </div>
+          </div>
+
+          <!-- neofetch-style system info panel -->
+          <div class="sysinfo" aria-label="profile system info">
+<div class="asci">   ███╗   ███╗██╗
+   ████╗ ████║██║
+   ██╔████╔██║██║
+   ██║╚██╔╝██║██║
+   ██║ ╚═╝ ██║███████╗
+   ╚═╝     ╚═╝╚══════╝</div>
+            <div class="row"><span class="k">user</span><span class="v">hoorish@peshawar</span></div>
+            <div class="row"><span class="k">role</span><span class="v grn">ML / CV Engineer</span></div>
+            <div class="row"><span class="k">focus</span><span class="v">detection · edge inference</span></div>
+            <div class="row"><span class="k">runtime</span><span class="v">PyTorch · ONNX · Sentis</span></div>
+            <div class="row"><span class="k">langs</span><span class="v">Python · C++ · C# · C</span></div>
+            <div class="row"><span class="k">edu</span><span class="v">UET Peshawar · 3.70 GPA</span></div>
+            <div class="row"><span class="k">repos</span><span class="v">github.com/hoorishahmad</span></div>
+            <div class="row"><span class="k">status</span><span class="v grn">● open to ML/CV roles</span></div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===== CASE STUDIES HEADER ===== -->
+    <section class="win" id="work">
+      <div class="titlebar">
+        <span class="name">case_studies — /projects</span>
+        <span class="winbtns"><button data-min>_</button><button>▢</button><button>×</button></span>
+      </div>
+      <div class="win-body">
+        <p class="eyebrow">Selected engineering work · 01–03</p>
+        <h2 class="section-h">From trained weights to running product.</h2>
+        <p class="section-sub">Three projects that carry a real model end-to-end — architecture choices, the constraint that shaped them, and where the numbers go.</p>
+      </div>
+    </section>
+
+    <!-- CASE 01 -->
+    <section class="win">
+      <div class="titlebar">
+        <span class="name">01 — object_detection_AR.unity</span>
+        <span class="winbtns"><button data-min>_</button><button>▢</button><button>×</button></span>
+      </div>
+      <div class="win-body">
+        <p class="case-tag">// Final Year Project · Computer Vision · Edge</p>
+        <h3 class="case-title">Real-Time Object Recognition in AR</h3>
+        <p class="case-repo"><a href="https://github.com/hoorishahmad" target="_blank" rel="noopener">github.com/hoorishahmad</a> · Unity · Python · ONNX · Unity Sentis · C#</p>
+
+        <div class="proj-img" style="display:flex;justify-content:center;background:#1a1a1a;">
+          <img src="assets/images/ardetect-demo.jpeg" alt="ARDetect running — real-time object detection overlaid on AR camera feed" loading="lazy" style="width:auto;max-width:280px;max-height:520px;object-fit:contain;display:block;">
+          <div class="proj-img-cap" style="position:absolute;display:none;"></div>
+        </div>
+        <div class="proj-img-cap">ARDetect · live detection on Android · YOLOv8n · Unity AR Foundation</div>
+
+        <div class="case-grid">
+          <div class="block">
+            <p class="block-h">Problem &amp; Objective</p>
+            <p>Run object detection <b>live on the device camera</b> inside an AR scene and augment recognized objects on the fly — entirely offline, no inference server. Target: a usable real-time experience on a mid-range Android phone.</p>
+          </div>
+          <div class="block">
+            <p class="block-h">Architecture &amp; Pipeline</p>
+            <p>Train in PyTorch → export to <b>ONNX</b> → load &amp; run in-engine with <b>Unity Sentis</b> at runtime. Benchmarked four detector backbones to find the accuracy/latency sweet spot for a constrained device.</p>
+            <div class="stack-row" style="margin-top:10px;">
+              <span class="pill arch">YOLOv8</span><span class="pill arch">MobileNet</span><span class="pill arch">EfficientDet</span><span class="pill arch">SSD</span>
+              <span class="pill">ONNX Runtime</span><span class="pill">Unity Sentis</span><span class="pill">C#</span><span class="pill">Python</span>
+            </div>
+          </div>
+          <div class="block">
+            <p class="block-h">Metrics &amp; Performance</p>
+            <div class="metrics">
+              <div class="metric"><div class="num">4</div><div class="lbl">architectures tested</div></div>
+              <div class="metric"><div class="num">3</div><div class="lbl">custom classes</div></div>
+              <div class="metric"><div class="num">0</div><div class="lbl">server deps</div></div>
+            </div>
+          </div>
+          <div class="block">
+            <p class="block-h">Engineering Challenge</p>
+            <ul>
+              <li>Trading accuracy against latency across four architectures for a real-time, memory-limited target.</li>
+              <li>Reconciling ONNX export quirks so models load and run correctly inside Sentis.</li>
+              <li>Keeping detection stable as the AR camera pose and lighting shift frame to frame.</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- CASE 02 -->
+    <section class="win">
+      <div class="titlebar">
+        <span class="name">02 — npc_ai_classifier.onnx</span>
+        <span class="winbtns"><button data-min>_</button><button>▢</button><button>×</button></span>
+      </div>
+      <div class="win-body">
+        <p class="case-tag">// On-Device Inference · Game AI · Classification</p>
+        <h3 class="case-title">NPC AI Game Tool — Object Classifier</h3>
+        <p class="case-repo"><a href="https://github.com/hoorishahmad/NPC-AI-Game-Tool-" target="_blank" rel="noopener">github.com/hoorishahmad/NPC-AI-Game-Tool</a> · Unity · C# · ONNX · Sentis</p>
+
+        <div class="proj-img">
+          <img src="assets/images/npc-tool.png" alt="NPC AI Game Tool — Unity scene with on-device ONNX classifier running" loading="lazy">
+          <div class="proj-img-cap">NPC AI Tool · Unity Sentis · real-time in-engine ONNX inference</div>
+        </div>
+
+        <div class="case-grid">
+          <div class="block">
+            <p class="block-h">Problem &amp; Objective</p>
+            <p>Give an NPC a way to <b>perceive its environment</b> in real time — classify nearby objects from spatial features so behaviour can react to what's around it, all inside the running game with no external service.</p>
+          </div>
+          <div class="block">
+            <p class="block-h">Architecture &amp; Pipeline</p>
+            <p>Train a neural network → export to <b>ONNX</b> → load into a live Unity scene via <b>Sentis</b> for in-engine inference. Extract spatial features (size, position, distance), normalize, classify each frame.</p>
+            <div class="stack-row" style="margin-top:10px;">
+              <span class="pill arch">Feed-forward NN</span><span class="pill">ONNX</span><span class="pill">Unity Sentis</span><span class="pill">C#</span><span class="pill">Feature engineering</span>
+            </div>
+          </div>
+          <div class="block">
+            <p class="block-h">Metrics &amp; Performance</p>
+            <div class="metrics">
+              <div class="metric"><div class="num">3</div><div class="lbl">spatial features</div></div>
+              <div class="metric"><div class="num">0ms</div><div class="lbl">server latency</div></div>
+              <div class="metric"><div class="num">∞</div><div class="lbl">offline capable</div></div>
+            </div>
+          </div>
+          <div class="block">
+            <p class="block-h">Engineering Challenge</p>
+            <ul>
+              <li>Designing a feature vector compact enough for per-frame inference but expressive enough to separate classes.</li>
+              <li>Normalizing spatial features so the model generalizes across scene scales.</li>
+              <li>Zero-dependency deployment — everything runs in-engine, no round trip to a server.</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- CASE 03 -->
+    <section class="win">
+      <div class="titlebar">
+        <span class="name">03 — gold_transformer.pt</span>
+        <span class="winbtns"><button data-min>_</button><button>▢</button><button>×</button></span>
+      </div>
+      <div class="win-body">
+        <p class="case-tag">// Deep Learning · Sequence Modeling · Transformers</p>
+        <h3 class="case-title">Gold Price Forecasting with Self-Attention</h3>
+        <p class="case-repo"><a href="https://github.com/hoorishahmad/Gold-Predictor" target="_blank" rel="noopener">github.com/hoorishahmad/Gold-Predictor</a> · PyTorch · NumPy · Pandas</p>
+
+        <div class="proj-img">
+          <img src="assets/images/gold-chart.png" alt="Gold price prediction — Transformer model output vs historical prices" loading="lazy">
+          <div class="proj-img-cap">Gold Predictor · Transformer self-attention · PyTorch · prediction vs ground truth</div>
+        </div>
+
+        <div class="case-grid">
+          <div class="block">
+            <p class="block-h">Problem &amp; Objective</p>
+            <p>Forecast gold prices from historical series using a <b>Transformer</b> instead of the usual LSTM, to capture longer-range temporal dependencies through self-attention across time steps.</p>
+          </div>
+          <div class="block">
+            <p class="block-h">Architecture &amp; Pipeline</p>
+            <p>From-scratch Transformer: <b>positional encoding</b>, <b>multi-head attention</b>, evaluated against baseline models. Built and trained in PyTorch with explicit train/validation separation.</p>
+            <div class="stack-row" style="margin-top:10px;">
+              <span class="pill arch">Transformer</span><span class="pill arch">Multi-head attention</span><span class="pill">Positional encoding</span><span class="pill">PyTorch</span><span class="pill">Pandas</span>
+            </div>
+          </div>
+          <div class="block">
+            <p class="block-h">Metrics &amp; Performance</p>
+            <div class="metrics">
+              <div class="metric"><div class="num">Self-attn</div><div class="lbl">vs LSTM baseline</div></div>
+              <div class="metric"><div class="num">Multi</div><div class="lbl">head attention</div></div>
+              <div class="metric"><div class="num">0</div><div class="lbl">data leakage verified</div></div>
+            </div>
+          </div>
+          <div class="block">
+            <p class="block-h">Engineering Challenge</p>
+            <ul>
+              <li>Verifying against <b>data leakage</b> — making sure future information never bleeds into training windows.</li>
+              <li>Implementing attention and positional encoding from first principles rather than a high-level wrapper.</li>
+              <li>Fair comparison against baselines under identical splits and preprocessing.</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- MORE PROJECTS -->
+    <section class="win">
+      <div class="titlebar">
+        <span class="name">more_projects — /archive</span>
+        <span class="winbtns"><button data-min>_</button><button>▢</button><button>×</button></span>
+      </div>
+      <div class="win-body">
+        <p class="eyebrow">Supporting work</p>
+        <h2 class="section-h" style="font-size:clamp(22px,3vw,30px);">Archive</h2>
+        <div class="mini" style="margin-top:18px;">
+          <div class="mcard">
+            <div class="mt">Ironveil Depths</div>
+            <p>Browser text-RPG where an LLM plays Game Master — stays in character while emitting valid JSON each turn so the UI updates live. State entirely through prompt design.</p>
+            <a class="ml" href="https://github.com/hoorishahmad/ironveil-depths" target="_blank" rel="noopener">JS · OpenRouter · Prompt Eng →</a>
+          </div>
+          <div class="mcard">
+            <div class="mt">Dorm Escape</div>
+            <p>Stealth game with an AI enemy system written from scratch — FoV detection, patrol/alert/chase state machine, full playable 3D build.</p>
+            <a class="ml" href="https://github.com/hoorishahmad/dorm-escape" target="_blank" rel="noopener">Unity · C# · Game AI →</a>
+          </div>
+          <div class="mcard">
+            <div class="mt">Tweet Sentiment Analyzer</div>
+            <p>Full NLP pipeline from raw text to predictions — tokenization, stopword removal, vectorization, classifier training for 3-class sentiment.</p>
+            <a class="ml" href="https://github.com/hoorishahmad/Tweet-Sentiment-Analyzer" target="_blank" rel="noopener">Python · scikit-learn →</a>
+          </div>
+          <div class="mcard">
+            <div class="mt">ANN Training &amp; Evaluation</div>
+            <p>Multi-layer ANN for digit recognition + regression ANN on California Housing — tuned architectures, loss curves, confusion matrices.</p>
+            <a class="ml">Python · scikit-learn · NumPy</a>
+          </div>
+          <div class="mcard">
+            <div class="mt">Crescent Quest</div>
+            <p>3D exploration game — player navigation, environment interaction, dynamic object spawning, game-state management.</p>
+            <a class="ml" href="https://github.com/hoorishahmad/crescent-quest" target="_blank" rel="noopener">Unity · C# →</a>
+          </div>
+          <div class="mcard">
+            <div class="mt">Systems Programming</div>
+            <p>Multithreaded Sudoku solver (pthreads + mutex) and a socket-based multiplayer Tic-Tac-Toe server. Low-level concurrency &amp; networking.</p>
+            <a class="ml">C · POSIX Threads · Sockets</a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===== TECH STACK MATRIX ===== -->
+    <section class="win" id="stack">
+      <div class="titlebar">
+        <span class="name">tech_stack — system.cfg</span>
+        <span class="winbtns"><button data-min>_</button><button>▢</button><button>×</button></span>
+      </div>
+      <div class="win-body">
+        <p class="eyebrow">Capability matrix</p>
+        <h2 class="section-h">Tech stack</h2>
+        <p class="section-sub">Grouped by what it's for. Everything here is something I've actually shipped or trained with.</p>
+
+        <div class="matrix" style="margin-top:20px;">
+          <div class="mcell">
+            <h3><span class="ix">DL</span> Deep Learning &amp; CV</h3>
+            <div class="stack-row">
+              <span class="pill">PyTorch</span><span class="pill">YOLOv8</span><span class="pill">MobileNet</span><span class="pill">EfficientDet</span><span class="pill">SSD</span>
+              <span class="pill">Object Detection</span><span class="pill">CNNs</span><span class="pill">Transformers</span><span class="pill">Multi-head Attention</span>
+              <span class="pill">scikit-learn</span><span class="pill">NumPy</span><span class="pill">Pandas</span>
+            </div>
+          </div>
+          <div class="mcell">
+            <h3><span class="ix">IO</span> Inference &amp; Deployment</h3>
+            <div class="stack-row">
+              <span class="pill">ONNX</span><span class="pill">ONNX Runtime</span><span class="pill">Unity Sentis (on-device)</span>
+              <span class="pill">Edge / real-time inference</span><span class="pill">Azure AI Studio</span><span class="pill">Azure OpenAI</span>
+              <span class="pill">Google Colab</span><span class="pill">Kaggle</span><span class="pill">Git / GitHub</span>
+            </div>
+          </div>
+          <div class="mcell">
+            <h3><span class="ix">LG</span> Languages &amp; Core Tools</h3>
+            <div class="stack-row">
+              <span class="pill">Python</span><span class="pill">C++</span><span class="pill">C</span><span class="pill">C#</span><span class="pill">Java</span><span class="pill">Bash</span><span class="pill">MIPS Asm</span>
+              <span class="pill">Jupyter</span><span class="pill">VS Code</span><span class="pill">MATLAB</span><span class="pill">Linux</span>
+            </div>
+          </div>
+          <div class="mcell">
+            <h3><span class="ix">GD</span> Game / Interactive AI</h3>
+            <div class="stack-row">
+              <span class="pill">Unity (C#)</span><span class="pill">Blender</span><span class="pill">AR development</span>
+              <span class="pill">Game AI (patrol/detect/NPC)</span><span class="pill">State machines</span>
+              <span class="pill">LLM API integration</span><span class="pill">Structured output design</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="matrix" style="margin-top:14px;">
+          <div class="mcell road">
+            <h3><span class="ix">→</span> Currently learning / roadmap</h3>
+            <div class="stack-row">
+              <span class="pill" style="background:#F5E2D9;border-color:var(--warn);color:var(--warn);">Agentic AI</span>
+              <span class="pill" style="background:#F5E2D9;border-color:var(--warn);color:var(--warn);">Multi-agent systems</span>
+              <span class="pill" style="background:#F5E2D9;border-color:var(--warn);color:var(--warn);">Tool-use &amp; function calling</span>
+              <span class="pill" style="background:#F5E2D9;border-color:var(--warn);color:var(--warn);">Autonomous pipelines</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===== RESEARCH ===== -->
+    <section class="win" id="research">
+      <div class="titlebar">
+        <span class="name">research — interests.bib</span>
+        <span class="winbtns"><button data-min>_</button><button>▢</button><button>×</button></span>
+      </div>
+      <div class="win-body">
+        <p class="eyebrow">Research direction</p>
+        <h2 class="section-h">Where I want to go deeper.</h2>
+        <p class="section-sub" style="max-width:70ch;">
+          I'm most interested in AI that interacts with people through creative and immersive experiences —
+          computer vision, intelligent agents, LLM-driven game systems, AIGC, and AR/VR. The intersection of
+          technical depth and creative application is where I want to focus, both through the projects I'm
+          building now and through graduate research abroad.
+        </p>
+
+        <div style="margin-top:22px;">
+          <div class="cite pending">
+            <div class="ctitle">Object Recognition in AR Using ML Models</div>
+            <div class="cmeta">Final Year Project · UET Peshawar · 2025 — write-up in progress</div>
+          </div>
+        </div>
+
+        <p class="block-h" style="margin-top:22px;">Relevant coursework</p>
+        <div class="cw-grid">
+          <span class="cw">Artificial Intelligence</span>
+          <span class="cw">Game Development</span>
+          <span class="cw">Data Structures &amp; Algorithms</span>
+          <span class="cw">Digital Signal Processing</span>
+          <span class="cw">Operating Systems</span>
+          <span class="cw">Computer Architecture</span>
+          <span class="cw">Computer Security</span>
+          <span class="cw">Embedded Systems</span>
+          <span class="cw">NAVTTC AI Cert · NCCS</span>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===== CONTACT ===== -->
+    <section class="win contact" id="contact">
+      <div class="titlebar">
+        <span class="name">contact — shutdown.sh</span>
+        <span class="winbtns"><button data-min>_</button><button>▢</button><button>×</button></span>
+      </div>
+      <div class="win-body">
+        <p class="eyebrow">Get in touch</p>
+        <h2 class="section-h">Let's build something that perceives the world.</h2>
+        <p class="section-sub">Open to ML / Computer Vision roles and research collaboration. Based in Pakistan, working globally.</p>
+        <div class="links" style="margin-top:18px;">
+          <a class="link-chip" href="mailto:hoorish488@gmail.com">✉ hoorish488@gmail.com</a>
+          <a class="link-chip" href="https://github.com/hoorishahmad" target="_blank" rel="noopener">⌥ github.com/hoorishahmad</a>
+          <a class="link-chip" href="https://linkedin.com/in/hoorish-ahmad" target="_blank" rel="noopener">in linkedin.com/in/hoorish-ahmad</a>
+          <a class="link-chip" href="tel:+923185632502">☎ +92 318-5632502</a>
+        </div>
+        <p class="footnote" style="margin-top:24px;color:#8A857A;">© 2026 Hoorish Ahmad · built from scratch · no templates harmed</p>
+      </div>
+    </section>
+
+  </main>
+
+<script>
+  // live retro clock — DD/MM/YYYY HH:MM
+  (function(){
+    var el=document.getElementById('clock');
+    function pad(n){return String(n).padStart(2,'0');}
+    function tick(){
+      var d=new Date();
+      el.textContent=pad(d.getDate())+'/'+pad(d.getMonth()+1)+'/'+d.getFullYear()+' '+pad(d.getHours())+':'+pad(d.getMinutes());
+    }
+    tick(); setInterval(tick,15000);
+  })();
+
+  // minimize buttons collapse their window (decorative but functional + accessible)
+  document.querySelectorAll('button[data-min]').forEach(function(b){
+    b.setAttribute('aria-label','minimize window');
+    b.addEventListener('click',function(){
+      this.closest('.win').classList.toggle('collapsed');
+    });
+  });
+
+</script>
+</body>
+</html>

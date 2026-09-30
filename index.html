@@ -3,26 +3,26 @@
 <head>
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-<title>Hoorish Ahmad — ML / Computer Vision Engineer</title>
+<title>Hoorish Ahmad — HCI · Game AI · ML Research</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Sans:opsz,wght@9..40,400;9..40,500;9..40,600;9..40,700&family=JetBrains+Mono:wght@400;500;700&family=VT323&family=Press+Start+2P&display=swap" rel="stylesheet">
 <style>
   :root{
-    --bg:#D6D2C6;          /* desktop beige-grey */
-    --bg-2:#CBC6B8;        /* desktop deeper */
-    --win:#ECEAE2;         /* warm off-white window surface */
-    --win-2:#E3E0D6;       /* window alt rows */
-    --chrome:#C7C2B5;      /* window frame grey */
-    --chrome-dk:#9A9686;   /* frame shadow */
-    --ink:#1B1916;         /* near-black text */
-    --ink-soft:#55514A;    /* secondary text */
-    --violet:#6B2FB5;      /* primary accent */
-    --violet-dk:#451E78;   /* deep accent */
-    --violet-soft:#EADBFB; /* accent wash */
-    --term:#2F7D4B;        /* terminal green, used sparingly */
-    --line:#B7B2A3;        /* hairlines */
-    --warn:#B5532F;        /* fill-in / attention */
+    --bg:#D6D2C6;
+    --bg-2:#CBC6B8;
+    --win:#ECEAE2;
+    --win-2:#E3E0D6;
+    --chrome:#C7C2B5;
+    --chrome-dk:#9A9686;
+    --ink:#1B1916;
+    --ink-soft:#55514A;
+    --violet:#6B2FB5;
+    --violet-dk:#451E78;
+    --violet-soft:#EADBFB;
+    --term:#2F7D4B;
+    --line:#B7B2A3;
+    --warn:#B5532F;
     --radius:3px;
     --shadow:3px 3px 0 rgba(27,25,22,.18);
     --shadow-win:5px 5px 0 rgba(27,25,22,.22);
@@ -39,7 +39,7 @@
       radial-gradient(circle at 30% 0%,var(--bg) 0%,var(--bg-2) 100%);
     line-height:1.55;
     -webkit-font-smoothing:antialiased;
-    padding-top:38px; /* taskbar */
+    padding-top:38px;
   }
   a{color:var(--violet);text-decoration:none;}
   a:hover{text-decoration:underline;}
@@ -91,7 +91,6 @@
     background:linear-gradient(90deg,var(--violet-dk),var(--violet) 70%);
     color:#fff;font-family:"VT323",monospace;font-size:19px;line-height:1;
   }
-  .titlebar .dot{font-family:"DM Sans";font-size:11px;}
   .titlebar .name{flex:1;letter-spacing:.5px;text-transform:lowercase;}
   .winbtns{display:flex;gap:4px;}
   .winbtns button{
@@ -117,7 +116,7 @@
   /* ---------- HERO ---------- */
   .hero-grid{display:grid;grid-template-columns:1.35fr .9fr;gap:26px;align-items:stretch;}
   .pixel-kicker{
-    font-family:"Press Start 2P",monospace;font-size:clamp(13px,2.1vw,20px);
+    font-family:"Press Start 2P",monospace;font-size:clamp(11px,1.8vw,17px);
     color:var(--violet);line-height:1.6;letter-spacing:1px;margin:0 0 18px;
     text-shadow:2px 2px 0 var(--violet-soft);
   }
@@ -140,9 +139,8 @@
     background:var(--chrome);color:var(--ink);box-shadow:var(--shadow);
   }
   .link-chip:hover{background:var(--violet);color:#fff;text-decoration:none;border-color:var(--violet-dk) #fff #fff var(--violet-dk);}
-  .link-chip.ghost{opacity:.65;border-style:dashed;border-color:var(--violet);background:transparent;color:var(--violet-dk);box-shadow:none;}
 
-  /* system-info "neofetch" panel */
+  /* neofetch panel */
   .sysinfo{
     background:#16140F;color:#E8E4D8;border:2px solid var(--chrome-dk);
     font-family:"JetBrains Mono",monospace;font-size:12.5px;line-height:1.7;
@@ -159,14 +157,14 @@
     margin:16px 0 4px;border:2px solid var(--line);overflow:hidden;
     background:var(--win-2);
   }
-  .proj-img img{
-    width:100%;display:block;height:auto;
-  }
+  .proj-img img{width:100%;display:block;height:auto;}
   .proj-img-cap{
     font-family:"JetBrains Mono",monospace;font-size:10.5px;letter-spacing:.8px;
     color:var(--ink-soft);text-transform:uppercase;
     padding:5px 9px;background:var(--win-2);border-top:1px solid var(--line);
   }
+
+  /* ---------- CASE STUDIES ---------- */
   .case-tag{
     font-family:"JetBrains Mono",monospace;font-size:11px;letter-spacing:1.5px;
     text-transform:uppercase;color:var(--violet);font-weight:700;
@@ -197,22 +195,9 @@
 
   /* metrics */
   .metrics{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-top:2px;}
-  .metric{
-    border:1.5px solid var(--line);background:var(--win-2);padding:11px 12px;
-  }
-  .metric .num{
-    font-family:"DM Serif Display",serif;font-size:26px;line-height:1;color:var(--violet-dk);
-  }
-  .metric .lbl{
-    font-family:"JetBrains Mono",monospace;font-size:10px;letter-spacing:1px;
-    text-transform:uppercase;color:var(--ink-soft);margin-top:6px;
-  }
-  .fill{
-    display:inline-block;font-family:"JetBrains Mono",monospace;font-size:14px;font-weight:700;
-    color:var(--warn);border:1.5px dashed var(--warn);padding:1px 7px;background:#FBF1EC;
-    border-radius:2px;
-  }
-  .metric .fill{font-size:17px;}
+  .metric{border:1.5px solid var(--line);background:var(--win-2);padding:11px 12px;}
+  .metric .num{font-family:"DM Serif Display",serif;font-size:26px;line-height:1;color:var(--violet-dk);}
+  .metric .lbl{font-family:"JetBrains Mono",monospace;font-size:10px;letter-spacing:1px;text-transform:uppercase;color:var(--ink-soft);margin-top:6px;}
 
   /* ---------- TECH MATRIX ---------- */
   .matrix{display:grid;grid-template-columns:repeat(2,1fr);gap:18px;}
@@ -235,16 +220,16 @@
   .mcard .ml{font-family:"JetBrains Mono",monospace;font-size:11px;}
 
   /* ---------- RESEARCH ---------- */
-  .cite{
-    border-left:3px solid var(--violet);padding:2px 0 2px 18px;margin:0 0 16px;
-  }
+  .cite{border-left:3px solid var(--violet);padding:2px 0 2px 18px;margin:0 0 16px;}
   .cite .ctitle{font-family:"DM Serif Display",serif;font-size:19px;line-height:1.25;}
   .cite .cmeta{font-family:"JetBrains Mono",monospace;font-size:12px;color:var(--ink-soft);margin-top:3px;}
-  .cite.pending .ctitle{color:var(--ink-soft);}
+  .cite .cdesc{font-size:13.5px;color:var(--ink-soft);margin-top:6px;line-height:1.5;}
+  .cite.active .ctitle{color:var(--violet-dk);}
+  .cite.active{border-color:var(--violet-dk);}
   .cw-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-top:14px;}
   .cw{font-family:"JetBrains Mono",monospace;font-size:12px;padding:6px 9px;background:var(--win-2);border:1px solid var(--line);}
 
-  /* ---------- CONTACT BAR ---------- */
+  /* ---------- CONTACT ---------- */
   .contact .win-body{background:#16140F;color:#E8E4D8;border-color:#000;}
   .contact .eyebrow{color:#9B7BD4;}
   .contact h2.section-h{color:#fff;}
@@ -252,14 +237,8 @@
   .contact .link-chip{background:#241F18;color:#E8E4D8;border-color:#3a342a #000 #000 #3a342a;}
   .contact .link-chip:hover{background:var(--violet);color:#fff;}
 
-  .footnote{
-    font-family:"JetBrains Mono",monospace;font-size:11px;color:var(--ink-soft);
-    text-align:center;margin-top:6px;
-  }
-  .note-strip{
-    background:#FBF4F0;border:1.5px dashed var(--warn);padding:10px 14px;margin:16px 3px 3px;
-    font-family:"JetBrains Mono",monospace;font-size:12px;color:var(--warn);line-height:1.6;
-  }
+  .footnote{font-family:"JetBrains Mono",monospace;font-size:11px;color:var(--ink-soft);text-align:center;margin-top:6px;}
+  .note-strip{background:#FBF4F0;border:1.5px dashed var(--warn);padding:10px 14px;margin:16px 3px 3px;font-family:"JetBrains Mono",monospace;font-size:12px;color:var(--warn);line-height:1.6;}
 
   /* ---------- RESPONSIVE ---------- */
   @media (max-width:880px){
@@ -276,33 +255,6 @@
     .win-body{padding:18px;}
     .desktop{padding:18px 10px 60px;}
   }
-  /* ---------- CONTACT FORM ---------- */
-  .cfield{display:flex;flex-direction:column;gap:5px;margin-bottom:12px;}
-  .clabel{
-    font-family:"JetBrains Mono",monospace;font-size:11px;letter-spacing:1.5px;
-    text-transform:uppercase;color:#9B7BD4;font-weight:700;
-  }
-  .cinput{
-    font-family:"JetBrains Mono",monospace;font-size:13px;
-    background:#201C15;color:#E8E4D8;
-    border:1.5px solid #3a342a;padding:9px 11px;
-    outline:none;resize:vertical;width:100%;
-  }
-  .cinput:focus{border-color:var(--violet);}
-  .cinput::placeholder{color:#5a5448;}
-  .csend{
-    font-family:"JetBrains Mono",monospace;font-size:13px;font-weight:700;
-    letter-spacing:1px;padding:10px 20px;
-    background:var(--violet);color:#fff;border:2px solid;
-    border-color:var(--violet-soft) var(--violet-dk) var(--violet-dk) var(--violet-soft);
-    cursor:pointer;width:100%;margin-top:4px;
-  }
-  .csend:hover{background:var(--violet-dk);}
-  .csend:disabled{opacity:.5;cursor:not-allowed;}
-  @media(max-width:700px){
-    #contact .win-body > div[style*="grid"]{grid-template-columns:1fr!important;}
-  }
-
   @media (prefers-reduced-motion:reduce){html{scroll-behavior:auto;}}
 </style>
 </head>
@@ -323,7 +275,7 @@
 
   <main class="desktop">
 
-    <!-- ===== HERO / ABOUT ===== -->
+    <!-- ===== HERO ===== -->
     <section class="win" id="about">
       <div class="titlebar">
         <span class="name">about_me — README.md</span>
@@ -332,15 +284,16 @@
       <div class="win-body">
         <div class="hero-grid">
           <div>
-            <p class="pixel-kicker">// AI &amp;&nbsp;MACHINE&nbsp;LEARNING<br>&nbsp;&nbsp;&nbsp;ENGINEER</p>
+            <p class="pixel-kicker">// HCI · GAME AI<br>&nbsp;&nbsp;&nbsp;RESEARCH &amp; ENGINEERING</p>
             <h1 class="hero-name">Hoorish<br>Ahmad</h1>
-            <p class="hero-role">ML&nbsp;Engineer — <b>deep learning</b>, <b>intelligent systems</b> &amp; <b>AI-powered applications</b>.</p>
+            <p class="hero-role">Researcher &amp; Engineer — <b>HCI</b>, <b>Game AI</b> &amp; <b>ML systems</b> for interactive experiences.</p>
             <p class="hero-bio">
-              Final-year Computer Systems Engineering student at UET Peshawar (CGPA 3.70). I build
-              end-to-end AI systems — from training models in PyTorch to deploying them inside
-              real-time applications, games, and interactive experiences. Comfortable across the
-              stack: deep learning, NLP, LLM integration, and on-device inference. Headed toward
-              research-based graduate study in AI abroad.
+              Computer Systems Engineering graduate from University of Engineering and Technology Peshawar (CGPA 3.73). I sit at the
+              intersection of AI and interactive media — researching procedural content generation
+              via reinforcement learning, building intelligent game agents, and deploying ML models
+              inside real-time AR and game environments. Currently an AI Intern at Welltime Ltd (UK)
+              and Research Assistant under Engr. Abdullah Hamid. Pursuing research-based graduate
+              study in HCI, Game AI, or AIGC abroad.
             </p>
             <div class="links">
               <a class="link-chip" href="https://github.com/hoorishahmad" target="_blank" rel="noopener">⌥ GitHub</a>
@@ -349,7 +302,7 @@
             </div>
           </div>
 
-          <!-- neofetch-style system info panel -->
+          <!-- neofetch panel -->
           <div class="sysinfo" aria-label="profile system info">
 <div class="asci">   ███╗   ███╗██╗
    ████╗ ████║██║
@@ -358,13 +311,13 @@
    ██║ ╚═╝ ██║███████╗
    ╚═╝     ╚═╝╚══════╝</div>
             <div class="row"><span class="k">user</span><span class="v">hoorish@peshawar</span></div>
-            <div class="row"><span class="k">role</span><span class="v grn">AI / ML Engineer</span></div>
-            <div class="row"><span class="k">focus</span><span class="v">deep learning · NLP · CV</span></div>
-            <div class="row"><span class="k">runtime</span><span class="v">PyTorch · ONNX · Sentis</span></div>
+            <div class="row"><span class="k">role</span><span class="v grn">HCI / Game AI Researcher</span></div>
+            <div class="row"><span class="k">focus</span><span class="v">PCGRL · Game AI · HCI</span></div>
+            <div class="row"><span class="k">runtime</span><span class="v">PyTorch · Unity · ONNX</span></div>
             <div class="row"><span class="k">langs</span><span class="v">Python · C++ · C# · C</span></div>
             <div class="row"><span class="k">edu</span><span class="v">UET Peshawar · 3.70 GPA</span></div>
             <div class="row"><span class="k">repos</span><span class="v">github.com/hoorishahmad</span></div>
-            <div class="row"><span class="k">status</span><span class="v grn">● open to AI/ML roles</span></div>
+            <div class="row"><span class="k">status</span><span class="v grn">● open to research roles</span></div>
           </div>
         </div>
       </div>
@@ -378,8 +331,8 @@
       </div>
       <div class="win-body">
         <p class="eyebrow">Selected engineering work · 01–03</p>
-        <h2 class="section-h">From trained weights to running product.</h2>
-        <p class="section-sub">Three projects that carry a real model end-to-end — problem framing, architecture choices, and the engineering constraint that shaped them.</p>
+        <h2 class="section-h">Intelligence built into the game loop.</h2>
+        <p class="section-sub">Three projects that apply ML and AI research to interactive systems — from on-device inference in AR to LLM-driven narrative and deep RL for level generation.</p>
       </div>
     </section>
 
@@ -390,7 +343,7 @@
         <span class="winbtns"><button data-min>_</button><button>▢</button><button>×</button></span>
       </div>
       <div class="win-body">
-        <p class="case-tag">// Final Year Project · Computer Vision · Edge</p>
+        <p class="case-tag">// Final Year Project · Computer Vision · Edge Deployment</p>
         <h3 class="case-title">Real-Time Object Recognition in AR</h3>
         <p class="case-repo"><a href="https://github.com/hoorishahmad" target="_blank" rel="noopener">github.com/hoorishahmad</a> · Unity · Python · ONNX · Unity Sentis · C#</p>
 
@@ -436,45 +389,41 @@
     <!-- CASE 02 -->
     <section class="win">
       <div class="titlebar">
-        <span class="name">02 — npc_ai_classifier.onnx</span>
+        <span class="name">02 — ironveil_depths.js</span>
         <span class="winbtns"><button data-min>_</button><button>▢</button><button>×</button></span>
       </div>
       <div class="win-body">
-        <p class="case-tag">// On-Device Inference · Game AI · Classification</p>
-        <h3 class="case-title">NPC AI Game Tool — Object Classifier</h3>
-        <p class="case-repo"><a href="https://github.com/hoorishahmad/NPC-AI-Game-Tool-" target="_blank" rel="noopener">github.com/hoorishahmad/NPC-AI-Game-Tool</a> · Unity · C# · ONNX · Sentis</p>
-
-        <div class="proj-img">
-          <img src="assets/images/npc-tool.png" alt="NPC AI Game Tool — Unity scene with on-device ONNX classifier running" loading="lazy">
-          <div class="proj-img-cap">NPC AI Tool · Unity Sentis · real-time in-engine ONNX inference</div>
-        </div>
+        <p class="case-tag">// HCI · LLM Systems · Interactive Narrative</p>
+        <h3 class="case-title">Ironveil Depths — LLM-Powered AI Game Master</h3>
+        <p class="case-repo"><a href="https://github.com/hoorishahmad/ironveil-depths" target="_blank" rel="noopener">github.com/hoorishahmad/ironveil-depths</a> · JavaScript · HTML/CSS · OpenRouter API</p>
 
         <div class="case-grid">
           <div class="block">
             <p class="block-h">Problem &amp; Objective</p>
-            <p>Give an NPC a way to <b>perceive its environment</b> in real time — classify nearby objects from spatial features so behaviour can react to what's around it, all inside the running game with no external service.</p>
+            <p>Build a browser text-RPG where an LLM plays the <b>Game Master</b> — maintaining narrative coherence, in-character voice, and live game-state simultaneously. A direct HCI question: can an LLM sustain believable, stateful interaction over many turns?</p>
           </div>
           <div class="block">
             <p class="block-h">Architecture &amp; Pipeline</p>
-            <p>Train a neural network → export to <b>ONNX</b> → load into a live Unity scene via <b>Sentis</b> for in-engine inference. Extract spatial features (size, position, distance), normalize, classify each frame.</p>
+            <p>The model stays in character as GM while emitting <b>valid JSON</b> at the end of every response so the UI can update health, inventory, gold, and location live. Full conversation history sent on every API call — state management entirely through prompt design.</p>
             <div class="stack-row" style="margin-top:10px;">
-              <span class="pill arch">Feed-forward NN</span><span class="pill">ONNX</span><span class="pill">Unity Sentis</span><span class="pill">C#</span><span class="pill">Feature engineering</span>
+              <span class="pill arch">LLM (OpenRouter)</span><span class="pill arch">Structured output</span>
+              <span class="pill">Prompt engineering</span><span class="pill">Multi-turn state</span><span class="pill">JavaScript</span>
             </div>
           </div>
           <div class="block">
             <p class="block-h">Metrics &amp; Performance</p>
             <div class="metrics">
-              <div class="metric"><div class="num">3</div><div class="lbl">spatial features</div></div>
-              <div class="metric"><div class="num">0ms</div><div class="lbl">server latency</div></div>
-              <div class="metric"><div class="num">∞</div><div class="lbl">offline capable</div></div>
+              <div class="metric"><div class="num">∞</div><div class="lbl">turn memory</div></div>
+              <div class="metric"><div class="num">100%</div><div class="lbl">browser-native</div></div>
+              <div class="metric"><div class="num">0</div><div class="lbl">backend servers</div></div>
             </div>
           </div>
           <div class="block">
-            <p class="block-h">Engineering Challenge</p>
+            <p class="block-h">Research Relevance</p>
             <ul>
-              <li>Designing a feature vector compact enough for per-frame inference but expressive enough to separate classes.</li>
-              <li>Normalizing spatial features so the model generalizes across scene scales.</li>
-              <li>Zero-dependency deployment — everything runs in-engine, no round trip to a server.</li>
+              <li>Direct application of <b>HCI principles</b> — designing the interaction model so users stay immersed despite knowing they're talking to an LLM.</li>
+              <li>Getting consistent dual-mode output (narrative prose + structured JSON) required significant prompt iteration — a core prompt engineering challenge.</li>
+              <li>Demonstrates LLM-driven dynamic narrative, a key topic in AI for games research.</li>
             </ul>
           </div>
         </div>
@@ -484,45 +433,46 @@
     <!-- CASE 03 -->
     <section class="win">
       <div class="titlebar">
-        <span class="name">03 — gold_transformer.pt</span>
+        <span class="name">03 — dorm_escape_ai.unity</span>
         <span class="winbtns"><button data-min>_</button><button>▢</button><button>×</button></span>
       </div>
       <div class="win-body">
-        <p class="case-tag">// Deep Learning · Sequence Modeling · Transformers</p>
-        <h3 class="case-title">Gold Price Forecasting with Self-Attention</h3>
-        <p class="case-repo"><a href="https://github.com/hoorishahmad/Gold-Predictor" target="_blank" rel="noopener">github.com/hoorishahmad/Gold-Predictor</a> · PyTorch · NumPy · Pandas</p>
+        <p class="case-tag">// Game AI · Agent Behaviour · Unity</p>
+        <h3 class="case-title">Dorm Escape — AI Enemy System</h3>
+        <p class="case-repo"><a href="https://github.com/hoorishahmad/dorm-escape" target="_blank" rel="noopener">github.com/hoorishahmad/dorm-escape</a> · Unity · C# · Game AI</p>
 
         <div class="proj-img">
-          <img src="assets/images/gold-chart.png" alt="Gold price prediction — Transformer model output vs historical prices" loading="lazy">
-          <div class="proj-img-cap">Gold Predictor · Transformer self-attention · PyTorch · prediction vs ground truth</div>
+          <img src="assets/images/npc-tool.png" alt="Dorm Escape — Unity 3D stealth game with AI enemy behaviour system" loading="lazy">
+          <div class="proj-img-cap">Dorm Escape · patrol · detection · chase state machine · Unity 3D</div>
         </div>
 
         <div class="case-grid">
           <div class="block">
             <p class="block-h">Problem &amp; Objective</p>
-            <p>Forecast gold prices from historical series using a <b>Transformer</b> instead of the usual LSTM, to capture longer-range temporal dependencies through self-attention across time steps.</p>
+            <p>Design an <b>NPC enemy AI</b> that feels genuinely threatening — guards that patrol intelligently, detect the player through field-of-view checks, and escalate behaviour dynamically. Ship it as a complete playable stealth game.</p>
           </div>
           <div class="block">
             <p class="block-h">Architecture &amp; Pipeline</p>
-            <p>From-scratch Transformer: <b>positional encoding</b>, <b>multi-head attention</b>, evaluated against baseline models. Built and trained in PyTorch with explicit train/validation separation.</p>
+            <p>Finite state machine written from scratch in C#: <b>patrol → alert → chase</b> driven by FoV ray-casting and proximity triggers. Shipped a complete 3D game with stealth mechanics, collectibles, scene transitions, and animated UI.</p>
             <div class="stack-row" style="margin-top:10px;">
-              <span class="pill arch">Transformer</span><span class="pill arch">Multi-head attention</span><span class="pill">Positional encoding</span><span class="pill">PyTorch</span><span class="pill">Pandas</span>
+              <span class="pill arch">FSM (from scratch)</span><span class="pill arch">FoV detection</span>
+              <span class="pill">Unity (C#)</span><span class="pill">NavMesh</span><span class="pill">Game AI</span>
             </div>
           </div>
           <div class="block">
             <p class="block-h">Metrics &amp; Performance</p>
             <div class="metrics">
-              <div class="metric"><div class="num">Self-attn</div><div class="lbl">vs LSTM baseline</div></div>
-              <div class="metric"><div class="num">Multi</div><div class="lbl">head attention</div></div>
-              <div class="metric"><div class="num">0</div><div class="lbl">data leakage verified</div></div>
+              <div class="metric"><div class="num">3</div><div class="lbl">AI states</div></div>
+              <div class="metric"><div class="num">FoV</div><div class="lbl">ray-cast detection</div></div>
+              <div class="metric"><div class="num">Full</div><div class="lbl">playable build</div></div>
             </div>
           </div>
           <div class="block">
-            <p class="block-h">Engineering Challenge</p>
+            <p class="block-h">Research Relevance</p>
             <ul>
-              <li>Verifying against <b>data leakage</b> — making sure future information never bleeds into training windows.</li>
-              <li>Implementing attention and positional encoding from first principles rather than a high-level wrapper.</li>
-              <li>Fair comparison against baselines under identical splits and preprocessing.</li>
+              <li>Classic <b>game AI</b> problem — believable NPC behaviour without over-scripting or expensive planning algorithms.</li>
+              <li>FoV-based detection models a key perceptual primitive studied in agent behaviour research.</li>
+              <li>State machine architecture maps directly to topics in autonomous agents and interactive AI literature.</li>
             </ul>
           </div>
         </div>
@@ -540,40 +490,40 @@
         <h2 class="section-h" style="font-size:clamp(22px,3vw,30px);">Archive</h2>
         <div class="mini" style="margin-top:18px;">
           <div class="mcard">
-            <div class="mt">Ironveil Depths</div>
-            <p>Browser text-RPG where an LLM plays Game Master — stays in character while emitting valid JSON each turn so the UI updates live. State entirely through prompt design.</p>
-            <a class="ml" href="https://github.com/hoorishahmad/ironveil-depths" target="_blank" rel="noopener">JS · OpenRouter · Prompt Eng →</a>
+            <div class="mt">NPC AI Game Tool</div>
+            <p>Trained a neural network, exported to ONNX, and loaded it inside a running Unity scene via Sentis for live inference — a prototype for how an NPC might perceive its environment without a server.</p>
+            <a class="ml" href="https://github.com/hoorishahmad/NPC-AI-Game-Tool-" target="_blank" rel="noopener">Unity · ONNX · Sentis · C# →</a>
           </div>
           <div class="mcard">
-            <div class="mt">Dorm Escape</div>
-            <p>Stealth game with an AI enemy system written from scratch — FoV detection, patrol/alert/chase state machine, full playable 3D build.</p>
-            <a class="ml" href="https://github.com/hoorishahmad/dorm-escape" target="_blank" rel="noopener">Unity · C# · Game AI →</a>
+            <div class="mt">Gold Price Transformer</div>
+            <p>From-scratch Transformer with positional encoding and multi-head attention to forecast gold prices — explicit guard against data leakage, evaluated against LSTM baseline.</p>
+            <a class="ml" href="https://github.com/hoorishahmad/Gold-Predictor" target="_blank" rel="noopener">PyTorch · NumPy · Pandas →</a>
           </div>
           <div class="mcard">
             <div class="mt">Tweet Sentiment Analyzer</div>
-            <p>Full NLP pipeline from raw text to predictions — tokenization, stopword removal, vectorization, classifier training for 3-class sentiment.</p>
+            <p>Full NLP pipeline from raw text to predictions — tokenization, stopword removal, vectorization, 3-class sentiment classifier.</p>
             <a class="ml" href="https://github.com/hoorishahmad/Tweet-Sentiment-Analyzer" target="_blank" rel="noopener">Python · scikit-learn →</a>
           </div>
           <div class="mcard">
-            <div class="mt">ANN Training &amp; Evaluation</div>
-            <p>Multi-layer ANN for digit recognition + regression ANN on California Housing — tuned architectures, loss curves, confusion matrices.</p>
-            <a class="ml">Python · scikit-learn · NumPy</a>
-          </div>
-          <div class="mcard">
             <div class="mt">Crescent Quest</div>
-            <p>3D exploration game — player navigation, environment interaction, dynamic object spawning, game-state management.</p>
+            <p>3D exploration game — player navigation, environment interaction, dynamic object spawning, and game-state management built in Unity.</p>
             <a class="ml" href="https://github.com/hoorishahmad/crescent-quest" target="_blank" rel="noopener">Unity · C# →</a>
           </div>
           <div class="mcard">
+            <div class="mt">ANN Training &amp; Evaluation</div>
+            <p>Multi-layer ANN for digit recognition + regression ANN on California Housing — architecture tuning, loss curves, confusion matrices.</p>
+            <a class="ml">Python · scikit-learn · NumPy</a>
+          </div>
+          <div class="mcard">
             <div class="mt">Systems Programming</div>
-            <p>Multithreaded Sudoku solver (pthreads + mutex) and a socket-based multiplayer Tic-Tac-Toe server. Low-level concurrency &amp; networking.</p>
+            <p>Multithreaded Sudoku solver (pthreads + mutex) and a socket-based multiplayer Tic-Tac-Toe server — concurrency and networking from scratch.</p>
             <a class="ml">C · POSIX Threads · Sockets</a>
           </div>
         </div>
       </div>
     </section>
 
-    <!-- ===== TECH STACK MATRIX ===== -->
+    <!-- ===== TECH STACK ===== -->
     <section class="win" id="stack">
       <div class="titlebar">
         <span class="name">tech_stack — system.cfg</span>
@@ -586,34 +536,35 @@
 
         <div class="matrix" style="margin-top:20px;">
           <div class="mcell">
-            <h3><span class="ix">DL</span> Deep Learning &amp; CV</h3>
+            <h3><span class="ix">AI</span> ML &amp; Deep Learning</h3>
             <div class="stack-row">
-              <span class="pill">PyTorch</span><span class="pill">YOLOv8</span><span class="pill">MobileNet</span><span class="pill">EfficientDet</span><span class="pill">SSD</span>
-              <span class="pill">Object Detection</span><span class="pill">CNNs</span><span class="pill">Transformers</span><span class="pill">Multi-head Attention</span>
-              <span class="pill">scikit-learn</span><span class="pill">NumPy</span><span class="pill">Pandas</span>
+              <span class="pill">PyTorch</span><span class="pill">scikit-learn</span><span class="pill">NumPy</span><span class="pill">Pandas</span>
+              <span class="pill">YOLOv8</span><span class="pill">MobileNet</span><span class="pill">EfficientDet</span>
+              <span class="pill">CNNs</span><span class="pill">Transformers</span><span class="pill">Reinforcement Learning</span>
+            </div>
+          </div>
+          <div class="mcell">
+            <h3><span class="ix">GD</span> Game AI &amp; Interactive Systems</h3>
+            <div class="stack-row">
+              <span class="pill">Unity (C#)</span><span class="pill">Blender</span><span class="pill">AR development</span>
+              <span class="pill">FSM design</span><span class="pill">NPC behaviour</span><span class="pill">FoV detection</span>
+              <span class="pill">LLM integration</span><span class="pill">Structured output design</span><span class="pill">Prompt engineering</span>
             </div>
           </div>
           <div class="mcell">
             <h3><span class="ix">IO</span> Inference &amp; Deployment</h3>
             <div class="stack-row">
-              <span class="pill">ONNX</span><span class="pill">ONNX Runtime</span><span class="pill">Unity Sentis (on-device)</span>
-              <span class="pill">Edge / real-time inference</span><span class="pill">Azure AI Studio</span><span class="pill">Azure OpenAI</span>
-              <span class="pill">Google Colab</span><span class="pill">Kaggle</span><span class="pill">Git / GitHub</span>
+              <span class="pill">ONNX</span><span class="pill">ONNX Runtime</span><span class="pill">Unity Sentis</span>
+              <span class="pill">Edge / on-device inference</span><span class="pill">Azure AI Studio</span><span class="pill">Azure OpenAI</span>
+              <span class="pill">Google Colab</span><span class="pill">Git / GitHub</span>
             </div>
           </div>
           <div class="mcell">
             <h3><span class="ix">LG</span> Languages &amp; Core Tools</h3>
             <div class="stack-row">
-              <span class="pill">Python</span><span class="pill">C++</span><span class="pill">C</span><span class="pill">C#</span><span class="pill">Java</span><span class="pill">Bash</span><span class="pill">MIPS Asm</span>
-              <span class="pill">Jupyter</span><span class="pill">VS Code</span><span class="pill">MATLAB</span><span class="pill">Linux</span>
-            </div>
-          </div>
-          <div class="mcell">
-            <h3><span class="ix">GD</span> Game / Interactive AI</h3>
-            <div class="stack-row">
-              <span class="pill">Unity (C#)</span><span class="pill">Blender</span><span class="pill">AR development</span>
-              <span class="pill">Game AI (patrol/detect/NPC)</span><span class="pill">State machines</span>
-              <span class="pill">LLM API integration</span><span class="pill">Structured output design</span>
+              <span class="pill">Python</span><span class="pill">C++</span><span class="pill">C</span><span class="pill">C#</span>
+              <span class="pill">JavaScript</span><span class="pill">Bash</span><span class="pill">MIPS Asm</span>
+              <span class="pill">Jupyter</span><span class="pill">VS Code</span><span class="pill">Linux</span>
             </div>
           </div>
         </div>
@@ -626,6 +577,7 @@
               <span class="pill" style="background:#F5E2D9;border-color:var(--warn);color:var(--warn);">Multi-agent systems</span>
               <span class="pill" style="background:#F5E2D9;border-color:var(--warn);color:var(--warn);">Tool-use &amp; function calling</span>
               <span class="pill" style="background:#F5E2D9;border-color:var(--warn);color:var(--warn);">Autonomous pipelines</span>
+              <span class="pill" style="background:#F5E2D9;border-color:var(--warn);color:var(--warn);">Deep RL for PCGRL</span>
             </div>
           </div>
         </div>
@@ -639,23 +591,59 @@
         <span class="winbtns"><button data-min>_</button><button>▢</button><button>×</button></span>
       </div>
       <div class="win-body">
-        <p class="eyebrow">Research direction</p>
+        <p class="eyebrow">Research &amp; academic work</p>
         <h2 class="section-h">Where I want to go deeper.</h2>
-        <p class="section-sub" style="max-width:70ch;">
-          I'm most interested in AI that interacts with people through creative and immersive experiences —
-          computer vision, intelligent agents, LLM-driven game systems, AIGC, and AR/VR. The intersection of
-          technical depth and creative application is where I want to focus, both through the projects I'm
-          building now and through graduate research abroad.
+        <p class="section-sub" style="max-width:72ch;">
+          I sit at the intersection of HCI, Game AI, and generative systems. My core question:
+          how do we build AI that makes interactive experiences more intelligent, adaptive,
+          and human-centred? That spans procedural content generation, NPC behaviour,
+          LLM-driven narrative, and AR/VR interfaces. Pursuing a research-based MS or PhD abroad
+          in the same space.
         </p>
 
-        <div style="margin-top:22px;">
-          <div class="cite pending">
-            <div class="ctitle">Object Recognition in AR Using ML Models</div>
-            <div class="cmeta">Final Year Project · UET Peshawar · 2025 — write-up in progress</div>
+        <div style="margin-top:26px;">
+
+          <!-- Active RA work -->
+          <div class="cite active">
+            <div class="ctitle">Procedural Content Generation via Reinforcement Learning (PCGRL)</div>
+            <div class="cmeta">Research Assistant · UET Peshawar · Supervisor: Engr. Abdullah Hamid · 2025 — ongoing</div>
+            <div class="cdesc">
+              Investigating deep RL approaches to automated level and content generation for games.
+              Working on training agents that learn to construct playable, well-structured game levels
+              as a policy rather than through hand-crafted generation rules — directly in the PCGRL
+              research tradition (Khalifa et al., 2020). Exploring how RL-trained generators can
+              adapt output to player behaviour and skill level, connecting PCGRL to adaptive game
+              design and HCI.
+            </div>
           </div>
+
+          <!-- FYP write-up -->
+          <div class="cite">
+            <div class="ctitle">Object Recognition in AR Using ML Models</div>
+            <div class="cmeta">Final Year Project · UET Peshawar · 2025 — thesis submitted</div>
+            <div class="cdesc">
+              Comparative study of four object detection architectures (YOLOv8, MobileNet, EfficientDet, SSD)
+              deployed on-device inside a Unity AR scene via ONNX and Unity Sentis, with no inference server.
+              Evaluated accuracy/latency tradeoffs under real-time AR constraints on a mid-range Android device.
+            </div>
+          </div>
+
         </div>
 
-        <p class="block-h" style="margin-top:22px;">Relevant coursework</p>
+        <p class="block-h" style="margin-top:26px;">Research interests</p>
+        <div class="cw-grid">
+          <span class="cw">Human-Computer Interaction</span>
+          <span class="cw">Game AI &amp; NPC Behaviour</span>
+          <span class="cw">Procedural Content Generation</span>
+          <span class="cw">Reinforcement Learning</span>
+          <span class="cw">LLM-driven Narrative</span>
+          <span class="cw">AI-Generated Content (AIGC)</span>
+          <span class="cw">AR / VR Interfaces</span>
+          <span class="cw">Interactive ML Systems</span>
+          <span class="cw">Adaptive Game Design</span>
+        </div>
+
+        <p class="block-h" style="margin-top:20px;">Relevant coursework &amp; training</p>
         <div class="cw-grid">
           <span class="cw">Artificial Intelligence</span>
           <span class="cw">Game Development</span>
@@ -663,9 +651,9 @@
           <span class="cw">Digital Signal Processing</span>
           <span class="cw">Operating Systems</span>
           <span class="cw">Computer Architecture</span>
-          <span class="cw">Computer Security</span>
-          <span class="cw">Embedded Systems</span>
           <span class="cw">NAVTTC AI Cert · NCCS</span>
+          <span class="cw">Agentic AI Instructor · NAVTTC</span>
+          <span class="cw">Azure AI Fundamentals</span>
         </div>
       </div>
     </section>
@@ -678,8 +666,8 @@
       </div>
       <div class="win-body">
         <p class="eyebrow">Get in touch</p>
-        <h2 class="section-h">Let's build intelligent systems together.</h2>
-        <p class="section-sub">Open to AI / ML roles and research collaboration. Based in Pakistan, working globally.</p>
+        <h2 class="section-h">Let's build intelligent, human-centred experiences.</h2>
+        <p class="section-sub">Open to research roles, MS/PhD opportunities, and AI/ML engineering positions. Based in Pakistan, working globally.</p>
         <div class="links" style="margin-top:18px;">
           <a class="link-chip" href="mailto:hoorish488@gmail.com">✉ hoorish488@gmail.com</a>
           <a class="link-chip" href="https://github.com/hoorishahmad" target="_blank" rel="noopener">⌥ github.com/hoorishahmad</a>
@@ -693,7 +681,6 @@
   </main>
 
 <script>
-  // live retro clock — DD/MM/YYYY HH:MM
   (function(){
     var el=document.getElementById('clock');
     function pad(n){return String(n).padStart(2,'0');}
@@ -704,14 +691,12 @@
     tick(); setInterval(tick,15000);
   })();
 
-  // minimize buttons collapse their window (decorative but functional + accessible)
   document.querySelectorAll('button[data-min]').forEach(function(b){
     b.setAttribute('aria-label','minimize window');
     b.addEventListener('click',function(){
       this.closest('.win').classList.toggle('collapsed');
     });
   });
-
 </script>
 </body>
 </html>
